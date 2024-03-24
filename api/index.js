@@ -5,7 +5,7 @@ const companiesRouter = require('./routes/companies.routes');
 
 const app = express();
 
-//app.use('/api', companiesRouter);
+app.use('/', companiesRouter);
 
 app.get("/", (req, res) => res.send("Express on Vercel"));
 
