@@ -1,8 +1,10 @@
+const db = require('../db');
+
 class CompaniesController {
     async createCompany(req, res) {
         const {name, logo, pb_id} = req.body;
-        console.log(name, logo, pb_id);
-        res.json('Ok');
+        const newCompany = await db.query('INSERT INTO companies (name, logo, pb_id) values ($1, $2, $3) RETURNING *', [name, logo, pb_id])
+        res.json(newCompany);
     }
     async getCompany(req, res) {
 
