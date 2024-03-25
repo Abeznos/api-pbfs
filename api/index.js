@@ -31,8 +31,8 @@ app.get('/page', urlencodedParser, async (req, res) => {
 	try {
         const id = req.params.page_id;
         const page = await sql`SELECT * FROM pages were page_id = ${id}`;
-        if (pages && pages.rows.length > 0) {
-            res.status(200).send(res.json(page.rows[0]));
+        if (page && page.rows.length > 0) {
+           res.json(page.rows[0]);
         } else {
             res.status(404).send('Page not found');
         }
