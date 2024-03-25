@@ -30,12 +30,13 @@ app.post('/companies', urlencodedParser, async (req, res) => {
 app.get('/page', urlencodedParser, async (req, res) => {
 	try {
         const id = req.params.page_id;
-        const page = await sql`SELECT * FROM pages were page_id = ${id}`;
-        if (page && page.rows.length > 0) {
-           res.json(page.rows[0]);
-        } else {
-            res.status(404).send('Page not found');
-        }
+        console.log(id);
+        //const page = await sql`SELECT * FROM pages were page_id = ${id}`;
+        //if (page && page.rows.length > 0) {
+        //   res.json(page.rows[0]);
+        //} else {
+        //    res.status(404).send('Page not found');
+        //}
     } catch (error) {
 		console.error(error);
 		res.status(500).send('Error retrieving users');
