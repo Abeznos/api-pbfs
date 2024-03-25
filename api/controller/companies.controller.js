@@ -1,4 +1,4 @@
-//const db = require('../db');
+const db = require('../db');
 const { sql } = require('@vercel/postgres');
 class CompaniesController {
     async createCompany(req, res) {
