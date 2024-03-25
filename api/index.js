@@ -17,7 +17,7 @@ app.use(express.static('public'));
 app.use(express.json());
 //app.use('/', companiesRouter);
 
-app.post('/uploadSuccessful', urlencodedParser, async (req, res) => {
+app.post('/companies', urlencodedParser, async (req, res) => {
 	try {
 		const newCompany = await sql`INSERT INTO companies (name, logo, pb_id) VALUES (${req.body.name}, ${req.body.logo}, ${req.body.pb_id});`;
         res.json(newCompany);
