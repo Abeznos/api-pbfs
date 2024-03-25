@@ -20,8 +20,7 @@ app.use(express.json());
 app.post('/uploadSuccessful', urlencodedParser, async (req, res) => {
 	try {
 		await sql`INSERT INTO companies (name, logo, pb_id) VALUES (${req.body.name}, ${req.body.logo}, ${req.body.pb_id});`;
-		res.json(newCompany);
-        //res.status(200).send('<h1>User added successfully</h1>');
+        res.status(200).send(res);
 	} catch (error) {
 		console.error(error);
 		res.status(500).send('Error adding user');
