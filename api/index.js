@@ -20,11 +20,26 @@ app.use(express.json());
 app.post('/companies', urlencodedParser, async (req, res) => {
 	try {
 		const newCompany = await sql`INSERT INTO companies (name, logo, pb_id) VALUES (${req.body.name}, ${req.body.logo}, ${req.body.pb_id});`;
-        res.json(newCompany);
+        res.json(newCompany.rows[0]);
 	} catch (error) {
 		console.error(error);
 		res.status(500).send('Error adding user');
 	}
+});
+
+app.get('/page', urlencodedParser, async (req, res) => {
+	try {
+        const id = req.params.page_id;
+        const page = await sql`SELECT * FROM pages were page_id = ${id}`;
+        if (pages && pages.rows.length > 0) {
+            res.status(200).send(res.json(page.rows[0]));
+        } else {
+            res.status(404).send('Page not found');
+        }
+    } catch (error) {
+		console.error(error);
+		res.status(500).send('Error retrieving users');
+    }
 });
 
 
