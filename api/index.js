@@ -21,6 +21,11 @@ app
 
 app.get("/", (req, res) => res.send("Express on Vercel"));
 
+app.post('/companies', db.createCompany);
+app.get('/companies', db.getCompanies);
+app.get('/companies/:id', db.getCompanyByID);
+app.delete('/companies/:id', db.deleteCompany);
+
 app.listen(process.env.PORT, () => console.log(`Server ready on port ${process.env.PORT}`));
 
 module.exports = app;
