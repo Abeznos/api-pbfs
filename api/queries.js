@@ -13,11 +13,11 @@ const pool = new Pool({
 
 
 const createCompany = async (request, response) => {
-  const { name, logo, pb_id } = request.body;
-  //const id = uuidv4();
+  const { name, tariff, logo, pb_id } = request.body;
+  const id = uuidv4();
   try {
-    await pool.query('INSERT INTO companies (name, logo, pb_id) VALUES ($1, $2, $3)', [name, logo, pb_id ], (error, results) => {
-      response.status(201).send(`Company added with ID: ${results.insertId}`);
+    await pool.query('INSERT INTO companies (name, tariff, logo, pb_id) VALUES ($1, $2, $3, $4,)', [name, tariff, logo, pb_id ], (error, results) => {
+      response.status(201).send(`Company added`);
     });
   } catch (error) {
 
@@ -60,6 +60,9 @@ const deleteCompany = async (request, response) => {
 		res.status(500).send('Error delete company');
   }
 }
+
+
+
 
 //console.log(uuidv4());
 

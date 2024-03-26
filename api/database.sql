@@ -1,18 +1,19 @@
 create TABLE companies(
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255),
+    company_name VARCHAR(255),
+    tariff VARCHAR(255),
     logo VARCHAR(255),
     pb_id VARCHAR(255)
 );
 
 create TABLE pages(
-    page_id VARCHAR(255) PRIMARY KEY,
-    chanal VARCHAR(255),
-    object VARCHAR(255),
-    point VARCHAR(255),
-    pb_id VARCHAR(255),
+    page_id UUID PRIMARY KEY,
+    page_name VARCHAR(255),
+    page_chanal VARCHAR(255),
+    page_object VARCHAR(255),
+    page_point VARCHAR(255),
     page_data JSON,
-    company_id INTEGER,
+    company_id UUID,
     FOREIGN KEY (company_id) REFERENCES companies (id)
 );
 
@@ -31,7 +32,7 @@ create TABLE assessment(
 );
 
 create TABLE clients(
-    id UUID PRIMARY KEY,
+    pbfs_id UUID PRIMARY KEY,
     name VARCHAR(255),
     phone VARCHAR(255),
     email VARCHAR(255),
