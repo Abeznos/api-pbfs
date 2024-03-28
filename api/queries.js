@@ -12,17 +12,33 @@ const pool = new Pool({
 });
 
 
+//const createCompany = async (request, response) => {
+//  const { name, logo} = request.body;
+//  //const id = uuidv4();
+//  try {
+//    await pool.query('INSERT INTO companies (company_name, logo) VALUES ($1, $2) RETURNING *', [name, logo], (error, results) => {
+//      response.status(201).send(`Company added company with ID: ${results.rows[0].id}`);
+//    });
+//  } catch (error) {
+//    console.error(error);
+//		res.status(500).send('Error adding company');
+//  }
+//}
+
+
 const createCompany = async (request, response) => {
-  const { name, tariff, logo, pb_id } = request.body;
+  const { company_name, tariff, company_status, billing_date, logo, pb_id } = request.body;
   const id = uuidv4();
   try {
-    await pool.query('INSERT INTO companies (name, tariff, logo, pb_id) VALUES ($1, $2, $3, $4,)', [name, tariff, logo, pb_id ], (error, results) => {
-      response.status(201).send(`Company added`);
+    await pool.query('INSERT INTO companies (company_id, company_name, tariff, company_status, logo, pb_id, billing_date) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', [id, company_name, tariff, company_status, logo, pb_id, billing_date], (error, results) => {
+      response.status(201).send(`Company added with ID: ${results.rows[0].company_id}`)
     });
   } catch (error) {
-
+    res.status(500).send('Error adding company');
   }
 }
+
+
 
 const getCompanies = async (request, response) => {
   try {
@@ -49,10 +65,10 @@ const getCompanyByID = async (request, response) => {
 }
 
 const deleteCompany = async (request, response) => {
-  const id = parseInt(request.params.id)
+  const id = parseInt(request.params.company_id)
 
   try {
-    await pool.query('DELETE FROM companies WHERE id = $1', [id], (error, results) => {
+    await pool.query('DELETE FROM companies WHERE company_id = $1', [id], (error, results) => {
       response.status(200).send(`Company deleted with ID: ${id}`)
     });
  } catch (error) {
@@ -60,9 +76,6 @@ const deleteCompany = async (request, response) => {
 		res.status(500).send('Error delete company');
   }
 }
-
-
-
 
 //console.log(uuidv4());
 
