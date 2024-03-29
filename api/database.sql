@@ -1,8 +1,11 @@
 create TABLE companies(
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255),
+    company_id UUID PRIMARY KEY,
+    company_name VARCHAR(30) NOT NULL,
+    tariff VARCHAR(10) DEFAULT 'Lite',
+    company_status VARCHAR(10),
+    billing_date DATE,
     logo VARCHAR(255),
-    pb_id VARCHAR(255)
+    pb_id VARCHAR(36)
 );
 
 create TABLE pages(

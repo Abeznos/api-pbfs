@@ -11,24 +11,13 @@ const createCompany = async (request, response) => {
   const { company_name, tariff, company_status, logo, pb_id } = request.body;
   const id = uuidv4();
   try {
-    await pool.query('INSERT INTO companies (company_id, company_name, tariff) VALUES ($1, $2, $3)', [id, company_name, tariff], (error, results) => {
-      response.status(201).send(`Company added with ID: ${results.rows[0].id}`);
+    await pool.query('INSERT INTO companies (company_id, company_name, tariff, company_status, logo, pb_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [id, company_name, tariff, company_status, logo, pb_id], (error, results) => {
+      response.status(201).send(results.rows[0].company_name);
     });
   } catch (error) {
       res.status(500).send('Error adding compony');
   }
 }
-
-//const createCompany = (request, response) => {
-//  const { company_name, logo } = request.body
-//
-//  pool.query('INSERT INTO companies (company_name, logo) VALUES ($1, $2) RETURNING *', [company_name, logo], (error, results) => {
-//    if (error) {
-//      throw error
-//    }
-//    response.status(201).send(`User added with ID: ${results.rows[0].id}`)
-//  })
-//}
 
 const getCompanies = async (request, response) => {
   try {
@@ -56,12 +45,14 @@ const getCompanyByID = async (request, response) => {
 
 const deleteCompany = async (request, response) => {
   const id = request.params.id;
+  console.log(id);
 
   try {
     await pool.query('DELETE FROM companies WHERE company_id = $1', [id], (error, results) => {
-      response.status(200).send(`Company deleted with ID: ${id}`)
+      response.status(200)
+      //.send(`Company deleted with ID: ${company_id}`)
     });
- } catch (error) {
+  } catch (error) {
 		console.error(error);
 		res.status(500).send('Error delete company');
   }
