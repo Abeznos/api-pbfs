@@ -25,6 +25,7 @@ app.post('/companies', db.createCompany);
 app.get('/companies', db.getCompanies);
 app.get('/companies/:id', db.getCompanyByID);
 app.delete('/companies/:id', db.deleteCompany);
+app.put('/companies', db.updateCompany);
 
 app.listen(process.env.PORT, () => console.log(`Server ready on port ${process.env.PORT}`));
 
