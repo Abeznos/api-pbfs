@@ -7,6 +7,20 @@ const pool = new Pool({
 });
 
 
+//const createCompany = async (request, response) => {
+//  const { name, logo} = request.body;
+//  //const id = uuidv4();
+//  try {
+//    await pool.query('INSERT INTO companies (company_name, logo) VALUES ($1, $2) RETURNING *', [name, logo], (error, results) => {
+//      response.status(201).send(`Company added company with ID: ${results.rows[0].id}`);
+//    });
+//  } catch (error) {
+//    console.error(error);
+//		res.status(500).send('Error adding company');
+//  }
+//}
+
+
 const createCompany = async (request, response) => {
   const { company_name, tariff, company_status, logo, pb_id } = request.body;
   const id = uuidv4();
@@ -19,6 +33,8 @@ const createCompany = async (request, response) => {
       res.status(500).send('Error adding compony');
   }
 }
+
+
 
 const getCompanies = async (request, response) => {
   try {
