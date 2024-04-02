@@ -1,32 +1,29 @@
 require('dotenv').config();
 
-const express = require("express");
+const express = require('express');
+const companyRouter = require('./routes/CompanyRouter')
+const PORT = process.env.PORT || 3000;
 const app = express();
-const db = require('./queries');
 
-//console.log(db);
-
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const path = require('path');
+const { request } = require('http');
 
+app.use(express.json());
+app.use(express.static('public'));
 
-app
-  .use(express.static('public'))
-  .use(bodyParser.json())
-  .use(
-    bodyParser.urlencoded({
-      extended: true,
-    })
-  );
+app.get('/', (request, response) => {
+  response.send('api-pbfs server start')
+});
 
-app.get("/", (req, res) => res.send("Express on Vercel"));
+app.use('/', companyRouter);
 
-app.post('/companies', db.createCompany);
-app.get('/companies', db.getCompanies);
-app.get('/companies/:id', db.getCompanyByID);
-app.delete('/companies/:id', db.deleteCompany);
-app.put('/companies', db.updateCompany);
+async function startApp() {
+  try {
+    app.listen(PORT, () => console.log('SERVER STARTED ON PORT ' + PORT));
+  } catch(error) {
+    console.log(errorr);
+  }
+}
 
-app.listen(process.env.PORT, () => console.log(`Server ready on port ${process.env.PORT}`));
-
-module.exports = app;
+startApp();
