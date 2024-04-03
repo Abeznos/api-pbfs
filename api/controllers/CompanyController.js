@@ -2,7 +2,12 @@ const companyService = require('../services/CompanyService');
 
 class CompanyController {
     async createCompany(request, response) {
-
+        try {
+            const company = await companyService.createCompany(request.body);
+            return response.status(201).json(company);
+        } catch(error) {
+            response.status(500).json(error.message)
+        }
     }
 
     async getAllCompanies(request, response) {
@@ -10,7 +15,7 @@ class CompanyController {
             const companies = await companyService.getAllCompanies();
             return response.status(200).json(companies);
         } catch (error) {
-            response.status(500).json(error)
+            response.status(500).json(error.message)
         }
     }
 
@@ -28,12 +33,17 @@ class CompanyController {
             const company = await companyService.upddateCompanyById(request.body);
             return response.status(200).json(company);
         } catch (error) {
-            response.status(500).json(error)
+            response.status(500).json(error.message)
         }
     }
 
     async deleteCompany(request, response) {
-        
+        try {
+            const company = await companyService.deleteCompany(request.params.id);
+            return response.status(200).json(company);
+        } catch(error) {
+            response.status(500).json(error.message)
+        }
     }
 }
 

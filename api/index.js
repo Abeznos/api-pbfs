@@ -1,22 +1,20 @@
 require('dotenv').config();
 
 const express = require('express');
-const companyRouter = require('./routes/CompanyRouter')
+const cors = require('cors');
+const router = require('./routes/index');
 const PORT = process.env.PORT || 3000;
-const app = express();
 
 const bodyParser = require('body-parser');
 const path = require('path');
 const { request } = require('http');
 
+const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
-app.get('/', (request, response) => {
-  response.send('api-pbfs server start')
-});
-
-app.use('/', companyRouter);
+app.use('/', router);
 
 async function startApp() {
   try {
