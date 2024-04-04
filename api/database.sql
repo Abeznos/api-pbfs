@@ -65,3 +65,15 @@ create TABLE points_of_sale(
     FOREIGN KEY (brand_id) REFERENCES brands (brand_id)
 );
 
+create TABLE users(
+    users_id UUID PRIMARY KEY,
+    user_name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(30) NOT NULL,
+    role VARCHAR(20) NOT NULL,
+    company_id UUID,
+    FOREIGN KEY (company_id) REFERENCES companies (company_id),
+    brand_id UUID,
+    FOREIGN KEY (brand_id) REFERENCES brands (brand_id)
+);
+
