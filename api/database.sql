@@ -42,3 +42,26 @@ create TABLE clients(
     company_id INTEGER,
     FOREIGN KEY (company_id) REFERENCES companies (id),
 );
+
+create TABLE brands(
+    brand_id UUID PRIMARY KEY,
+    brand_name VARCHAR(40) NOT NULL,
+    logo VARCHAR(255),
+    company_id UUID,
+    FOREIGN KEY (company_id) REFERENCES companies (company_id)
+);
+
+create TABLE points_of_sale(
+    point_id UUID PRIMARY KEY,
+    point_name VARCHAR(50) NOT NULL,
+    adress VARCHAR(255),
+    loyalty_link VARCHAR(255),
+    yandex_link VARCHAR(255),
+    _2gis_link VARCHAR(255),
+    google_link VARCHAR(255),
+    company_id UUID,
+    FOREIGN KEY (company_id) REFERENCES companies (company_id),
+    brand_id UUID,
+    FOREIGN KEY (brand_id) REFERENCES brands (brand_id)
+);
+

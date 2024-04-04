@@ -1,9 +1,9 @@
-const companyService = require('../services/CompanyService');
+const companiesService = require('../services/CompaniesService');
 
-class CompanyController {
+class CompaniesController {
     async createCompany(request, response) {
         try {
-            const company = await companyService.createCompany(request.body);
+            const company = await companiesService.createCompany(request.body);
             return response.status(201).json(company);
         } catch(error) {
             response.status(500).json(error.message)
@@ -12,7 +12,7 @@ class CompanyController {
 
     async getAllCompanies(request, response) {
         try {
-            const companies = await companyService.getAllCompanies();
+            const companies = await companiesService.getAllCompanies();
             return response.status(200).json(companies);
         } catch (error) {
             response.status(500).json(error.message)
@@ -21,7 +21,7 @@ class CompanyController {
 
     async getOneCompany(request, response) {
         try {
-            const company = await companyService.getOneCompany(request.params.id);
+            const company = await companiesService.getOneCompany(request.params.id);
             return response.status(200).json(company);
         } catch (error) {
             response.status(500).json(error)
@@ -30,7 +30,7 @@ class CompanyController {
 
     async upddateCompanyById(request, response) {
         try {
-            const company = await companyService.upddateCompanyById(request.body);
+            const company = await companiesService.upddateCompanyById(request.body);
             return response.status(200).json(company);
         } catch (error) {
             response.status(500).json(error.message)
@@ -39,7 +39,7 @@ class CompanyController {
 
     async deleteCompany(request, response) {
         try {
-            const company = await companyService.deleteCompany(request.params.id);
+            const company = await companiesService.deleteCompany(request.params.id);
             return response.status(200).json(company);
         } catch(error) {
             response.status(500).json(error.message)
@@ -47,4 +47,4 @@ class CompanyController {
     }
 }
 
-module.exports = new CompanyController();
+module.exports = new CompaniesController();
