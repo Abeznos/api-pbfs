@@ -69,6 +69,7 @@ create TABLE users(
     users_id UUID PRIMARY KEY,
     user_name VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
+    phone VARCHAR(30) UNIQUE,
     password VARCHAR(30) NOT NULL,
     role VARCHAR(20) NOT NULL,
     company_id UUID,
