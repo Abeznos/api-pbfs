@@ -78,3 +78,15 @@ create TABLE users(
     FOREIGN KEY (brand_id) REFERENCES brands (brand_id)
 );
 
+create TABLE pages(
+    page_id UUID PRIMARY KEY,
+    page_settings JSON NOT NULL,
+    created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    company_id UUID,
+    FOREIGN KEY (company_id) REFERENCES companies (company_id),
+    brand_id UUID,
+    FOREIGN KEY (brand_id) REFERENCES brands (brand_id),
+    point_id UUID,
+    FOREIGN KEY (point_id) REFERENCES points_of_sale (point_id)
+);
