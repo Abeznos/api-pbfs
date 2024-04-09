@@ -13,13 +13,13 @@ class PagesService {
     async getAllPages(query) {
         const { company_id, brand_id } = query;
         if (!company_id && brand_id) {
-            const pages = await db.query('SELECT * FROM pages_of_sale WHERE brand_id = $1', [brand_id]);
+            const pages = await db.query('SELECT * FROM pages WHERE brand_id = $1', [brand_id]);
             return pages.rows
         } else if (company_id && !brand_id || company_id && brand_id) {
-            const pages = await db.query('SELECT * FROM pages_of_sale WHERE company_id = $1', [company_id]);
+            const pages = await db.query('SELECT * FROM pages WHERE company_id = $1', [company_id]);
             return pages.rows
         } else {
-            const pages = await db.query('SELECT * FROM pages_of_sale ORDER BY page_id ASC');
+            const pages = await db.query('SELECT * FROM pages ORDER BY page_id ASC');
             return pages.rows;
         }
     }
