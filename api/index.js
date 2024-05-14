@@ -1,31 +1,27 @@
 require('dotenv').config();
 
-const express = require("express");
-const app = express();
-const db = require('./queries');
+const express = require('express');
+const cors = require('cors');
+const router = require('./routes/index');
+const PORT = process.env.PORT || 3000;
 
-//console.log(db);
-
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const path = require('path');
+const { request } = require('http');
 
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(express.static('public'));
 
-app
-  .use(express.static('public'))
-  .use(bodyParser.json())
-  .use(
-    bodyParser.urlencoded({
-      extended: true,
-    })
-  );
+app.use('/', router);
 
-app.get("/", (req, res) => res.send("Express on Vercel"));
+async function startApp() {
+  try {
+    app.listen(PORT, () => console.log('SERVER STARTED ON PORT ' + PORT));
+  } catch(error) {
+    console.log(errorr);
+  }
+}
 
-app.post('/companies', db.createCompany);
-app.get('/companies', db.getCompanies);
-app.get('/companies/:id', db.getCompanyByID);
-app.delete('/companies/:id', db.deleteCompany);
-
-app.listen(process.env.PORT, () => console.log(`Server ready on port ${process.env.PORT}`));
-
-module.exports = app;
+startApp();
