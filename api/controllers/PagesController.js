@@ -45,6 +45,24 @@ class PagesController {
             response.status(500).json(error.message)
         }
     }
+
+    async saveAssessment(request, response) {
+        try {
+            const assessment = await pagesService.saveAssessment(request.body)
+            return response.status(200).json(assessment)
+        } catch(error) {
+            response.status(500).json(error.message)
+        }
+    }
+
+    async getAsessments(request, response) {
+        try {
+            const assessment = await pagesService.getAsessments(request.params.id)
+            return response.status(200).json(assessment)
+        } catch(error) {
+            response.status(500).json(error.message)
+        }
+    }
 }
 
 module.exports = new PagesController();
