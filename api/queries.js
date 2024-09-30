@@ -62,10 +62,10 @@ const getCompanyByID = async (request, response) => {
 
 const updateCompany = async (request, response) => {
   const { company_id, company_name, tariff, company_status, logo, pb_id } = request.body;
-  
+
   try {
     await pool.query(
-      'UPDATE companies SET company_name = $1, tariff = $2, company_status = $3, logo = $4, pb_id = $5 WHERE company_id = $6 RETURNING *', 
+      'UPDATE companies SET company_name = $1, tariff = $2, company_status = $3, logo = $4, pb_id = $5 WHERE company_id = $6 RETURNING *',
       [company_name, tariff, company_status, logo, pb_id, company_id], (error, results) => {
         response.status(200).send(results.rows[0])
     });

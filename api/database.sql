@@ -19,18 +19,28 @@ create TABLE pages(
     FOREIGN KEY (company_id) REFERENCES companies (id)
 );
 
-create TABLE assessment(
-    id SERIAL PRIMARY KEY,
-    chanal VARCHAR(255),
-    object VARCHAR(255),
-    point VARCHAR(255),
-    pb_id VARCHAR(255),
-    grade INTEGER,
-    additions VARCHAR(255),
-    company_id INTEGER,
-    FOREIGN KEY (company_id) REFERENCES companies (id),
-    client_id UUID,
-    FOREIGN KEY (client_id) REFERENCES clients (id)
+create TABLE assessments(
+    assessment_id UUID PRIMARY KEY,
+    company_name VARCHAR(255) NOT NULL,
+    company_id UUID NOT NULL,
+    pb_id UUID,
+    point VARCHAR(255) NOT NULL,
+    chanal VARCHAR(100) NOT NULL,
+    grade FLOAT NOT NULL,
+    buyer_phone VARCHAR(255),
+    buyer_name VARCHAR(255),
+    buyer_email VARCHAR(255),
+    buyer_comment TEXT,
+    legal_approved BOOLEAN NOT NULL,
+    created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+create TABLE assessments_answers (
+    assessment_id UUID PRIMARY KEY,
+    question VARCHAR(255) NOT NULL,
+    grade INTEGER NOT NULL,
+    created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (assessment_id) REFERENCES assessments (assessment_id) ON DELETE CASCADE
 );
 
 create TABLE clients(
