@@ -21,9 +21,7 @@ create TABLE pages(
 
 create TABLE assessments(
     assessment_id UUID PRIMARY KEY,
-    company_name VARCHAR(255) NOT NULL,
     company_id UUID NOT NULL,
-    pb_id UUID,
     point VARCHAR(255) NOT NULL,
     chanal VARCHAR(100) NOT NULL,
     grade FLOAT NOT NULL,
@@ -36,7 +34,7 @@ create TABLE assessments(
 );
 
 create TABLE assessments_answers (
-    assessment_id UUID PRIMARY KEY,
+    assessment_id UUID,
     question VARCHAR(255) NOT NULL,
     grade INTEGER NOT NULL,
     created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
